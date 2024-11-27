@@ -9,9 +9,9 @@ int generate_avsmp_by_number(void *dest, unsigned number, bool set_steam_x1x)
 
 	int *ticket = (int *)dest;
 
-	ticket[0] = 0x14;									 //  +0, header
+	ticket[0] = 0x14;                                    //  +0, header
 	ticket[3] = (number << 1) | (set_steam_x1x ? 1 : 0); // +12, SteamId, Low part
-	ticket[4] = 0x01100001;								 // +16, SteamId, High part
+	ticket[4] = 0x01100001;                              // +16, SteamId, High part
 
 	return 28;
 }

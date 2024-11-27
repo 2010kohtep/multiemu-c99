@@ -14,8 +14,16 @@ int generate_revemu_by_number(void *dest, unsigned number)
 	if (!rev_string)
 		return 0;
 
+	return generate_revemu_by_string(dest, rev_string);
+}
+
+int generate_revemu_by_string(void *dest, const char *string)
+{
+	if (!dest || !string || !*string)
+		return 0;
+
 	int *ticket = (int *)dest;
-	unsigned hash = rev_hash(rev_string);
+	unsigned hash = rev_hash(string);
 
 	ticket[0] = 'J';        //  +0, header
 	ticket[1] = hash;       //  +4, hash of string at +24 offset
@@ -25,15 +33,7 @@ int generate_revemu_by_number(void *dest, unsigned number)
 	ticket[4] = hash << 1;  // +16, SteamId, Low part
 	ticket[5] = 0x01100001; // +20, SteamId, High part
 
-	strcpy((char *)&ticket[6], rev_string); // +24, string for hash
+	strcpy((char *)&ticket[6], string); // +24, string for hash
 
 	return 152;
-}
-
-int generate_revemu_by_string(void *dest, const char *string)
-{
-	if (!dest || !string || !*string)
-		return 0;
-
-	return generate_revemu_by_number(dest, sse_hash_string(string));
 }

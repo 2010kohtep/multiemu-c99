@@ -4,9 +4,9 @@
 
 static int rotl(int value, int shift)
 {
-    const int bits = 32;
-    shift %= bits;
-    return (value << shift) | (value >> (bits - shift));
+	const int bits = 32;
+	shift %= bits;
+	return (value << shift) | (value >> (bits - shift));
 }
 
 static int sse_hash_seed(const void *data, int size, int seed)
